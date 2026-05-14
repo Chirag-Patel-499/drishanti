@@ -1,0 +1,12 @@
+venv/
+env/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+.vscode/
+node_modules/
+dist/
+build/
+staticfiles/
+media/
