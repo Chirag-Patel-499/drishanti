@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -12,7 +12,6 @@ import UserOrders from './pages/UserOrders.jsx'
 import WishlistPage from './pages/Wishlist.jsx'
 import CartPage from './pages/CartPage.jsx'
 import Contact from './pages/Contact.jsx'
-import CollectionsPage from './pages/CollectionsPage.jsx'
 import About from './pages/About.jsx'
 
 import Navbar from './components/Navbar.jsx'
@@ -31,7 +30,7 @@ function App() {
 
           <Route path="/" element={<Home />} />
 
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
 
           <Route path="/bestsellers" element={<BestsellersPage />} />
 
@@ -39,9 +38,6 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/:category" element={<ShopPage />} />
           <Route path="/shop/:category/:subcategory" element={<ShopPage />} />
-
-          {/* Collections */}
-          <Route path="/collections" element={<CollectionsPage />} />
 
           {/* About */}
           <Route path="/about" element={<About />} />

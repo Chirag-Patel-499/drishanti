@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Ensures assets are linked relatively (essential for Django/GH Pages subfolders)
+  base: '/', // Ensures assets are linked relatively (essential for Django/GH Pages subfolders)
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

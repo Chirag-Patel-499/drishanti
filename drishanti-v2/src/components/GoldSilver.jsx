@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const GoldSilver = () => {
   const items = [
@@ -73,9 +74,12 @@ const GoldSilver = () => {
 
               <div className="w-12 h-[1px] bg-white/50 mb-8 md:mb-10 transition-all duration-700 group-hover:w-24"></div>
 
-              <button className="text-[10px] tracking-[0.4em] uppercase border border-white px-8 md:px-10 py-3 md:py-4 transition-all duration-500 hover:bg-white hover:text-black font-bold">
+              <Link
+                to="/collections"
+                className="text-[10px] tracking-[0.4em] uppercase border border-white px-8 md:px-10 py-3 md:py-4 transition-all duration-500 hover:bg-white hover:text-black font-bold"
+              >
                 Explore Collection
-              </button>
+              </Link>
             </div>
             
             {/* Gradient Detail */}

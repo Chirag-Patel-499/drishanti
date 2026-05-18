@@ -61,6 +61,11 @@ const Navbar = () => {
     }
   }, [isMobileMenuOpen])
 
+  // Close mega-menu when navigating to a new page
+  useEffect(() => {
+    setActiveMenu(null)
+  }, [location.pathname])
+
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
@@ -92,7 +97,7 @@ const Navbar = () => {
             })) || []
         }))
 
-        setMenuItems({ Shop: shopMenu })
+        setMenuItems({ Collections: shopMenu })
 
       } catch (error) {
         console.error(error)
@@ -134,6 +139,10 @@ const Navbar = () => {
     setExpandedMobileMenu(null)
   }
 
+  const handleMegaMenuLinkClick = () => {
+    setActiveMenu(null)
+  }
+
   return (
     <>
       {/* NAVBAR */}
@@ -169,18 +178,24 @@ const Navbar = () => {
             {/* LEFT MENU */}
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12 text-[10px] tracking-[0.25em] uppercase font-semibold text-[#2c2c2c]">
 
-              {/* SHOP */}
+              <Link to="/" className="relative group py-1">
+                Home
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#b39168] group-hover:w-full transition-all duration-500"></span>
+              </Link>
+
+              {/* COLLECTIONS */}
               <div
                 className="relative group cursor-pointer"
-                onMouseEnter={() => handleMouseEnter('Shop')}
+                onMouseEnter={() => handleMouseEnter('Collections')}
+                onClick={() => setActiveMenu(activeMenu === 'Collections' ? null : 'Collections')}
               >
 
                 <span className="flex items-center gap-1.5 py-1">
-                  Shop
+                  Collections
                   <ChevronDown
                     size={10}
                     className={`transition-transform duration-300 ${
-                      activeMenu === 'Shop' ? 'rotate-180' : ''
+                      activeMenu === 'Collections' ? 'rotate-180' : ''
                     }`}
                   />
                 </span>
@@ -188,11 +203,6 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#b39168] group-hover:w-full transition-all duration-500"></span>
 
               </div>
-
-              <Link to="/collections" className="relative group py-1">
-                Collections
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#b39168] group-hover:w-full transition-all duration-500"></span>
-              </Link>
 
               <Link to="/about" className="relative group py-1">
                 Our Story
@@ -293,7 +303,7 @@ const Navbar = () => {
                     }
                   >
 
-                    <Link to={col.link}>
+                    <Link to={col.link} onClick={handleMegaMenuLinkClick}>
 
                       <h4 className="text-[10px] tracking-[0.3em] uppercase mb-10 font-bold text-[#b39168] hover:text-[#2c2c2c] transition-colors">
                         {col.title}
@@ -309,6 +319,7 @@ const Navbar = () => {
 
                           <Link
                             to={item.url}
+                            onClick={handleMegaMenuLinkClick}
                             className="text-[10px] uppercase tracking-[0.2em] text-[#666] hover:text-[#b39168] transition-all duration-300 block hover:translate-x-1"
                           >
                             {item.label}
@@ -379,105 +390,105 @@ const Navbar = () => {
 
                 <div className="space-y-0">
 
-                  {/* SHOP */}
-                  <div className="border-b border-[#e8dccb]">
-
-                    <button
-                      onClick={() => handleMobileMenuItemClick('Shop')}
-                      className="w-full flex justify-between items-center py-6 text-xl font-serif text-[#2c2c2c]"
-                    >
-
-                      <span>Shop</span>
-
-                      <motion.div
-                        animate={{
-                          rotate:
-                            expandedMobileMenu === 'Shop'
-                              ? 90
-                              : 0
-                        }}
-                      >
-
-                        <ChevronRight
-                          size={20}
-                          className="text-[#b39168]"
-                        />
-
-                      </motion.div>
-
-                    </button>
-
-                    <AnimatePresence>
-
-                      {expandedMobileMenu === 'Shop' && (
-
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="overflow-hidden bg-[#f2ece3]"
-                        >
-
-                          <div className="py-6 space-y-8">
-
-                            {menuItems.Shop.map((col, idx) => (
-
-                              <div key={idx} className="px-4">
-
-                                <Link
-                                  to={col.link}
-                                  onClick={handleMobileLinkClick}
-                                  className="text-sm uppercase tracking-widest font-bold text-[#b39168] mb-4 block"
-                                >
-                                  {col.title}
-                                </Link>
-
-                                <ul className="space-y-4 ml-2 border-l border-[#d9c7ad] pl-6">
-
-                                  {col.links.map((item, i) => (
-
-                                    <li key={i}>
-
-                                      <Link
-                                        to={item.url}
-                                        onClick={handleMobileLinkClick}
-                                        className="text-[11px] uppercase tracking-widest text-[#666] block hover:text-[#b39168]"
-                                      >
-                                        {item.label}
-                                      </Link>
-
-                                    </li>
-
-                                  ))}
-
-                                </ul>
-
-                              </div>
-
-                            ))}
-
-                          </div>
-
-                        </motion.div>
-
-                      )}
-
-                    </AnimatePresence>
-
-                  </div>
-
-                  {/* COLLECTION */}
+                  {/* HOME */}
                   <div className="border-b border-[#e8dccb] py-6">
 
                     <Link
-                      to="/collections"
+                      to="/"
                       onClick={handleMobileLinkClick}
                       className="text-xl font-serif text-[#2c2c2c] block"
                     >
-                      Collections
+                      Home
                     </Link>
 
                   </div>
+
+                  {/* COLLECTIONS */}
+                      <div className="border-b border-[#e8dccb]">
+
+                        <button
+                          onClick={() => handleMobileMenuItemClick('Collections')}
+                          className="w-full flex justify-between items-center py-6 text-xl font-serif text-[#2c2c2c]"
+                        >
+
+                          <span>Collections</span>
+
+                          <motion.div
+                            animate={{
+                              rotate:
+                                expandedMobileMenu === 'Collections'
+                                  ? 90
+                                  : 0
+                            }}
+                          >
+
+                            <ChevronRight
+                              size={20}
+                              className="text-[#b39168]"
+                            />
+
+                          </motion.div>
+
+                        </button>
+
+                        <AnimatePresence>
+
+                          {expandedMobileMenu === 'Collections' && (
+
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden bg-[#f2ece3]"
+                            >
+
+                              <div className="py-6 space-y-8">
+
+                                {menuItems.Collections.map((col, idx) => (
+
+                                  <div key={idx} className="px-4">
+
+                                    <Link
+                                      to={col.link}
+                                      onClick={handleMobileLinkClick}
+                                      className="text-sm uppercase tracking-widest font-bold text-[#b39168] mb-4 block"
+                                    >
+                                      {col.title}
+                                    </Link>
+
+                                    <ul className="space-y-4 ml-2 border-l border-[#d9c7ad] pl-6">
+
+                                      {col.links.map((item, i) => (
+
+                                        <li key={i}>
+
+                                          <Link
+                                            to={item.url}
+                                            onClick={handleMobileLinkClick}
+                                            className="text-[11px] uppercase tracking-widest text-[#666] block hover:text-[#b39168]"
+                                          >
+                                            {item.label}
+                                          </Link>
+
+                                        </li>
+
+                                      ))}
+
+                                    </ul>
+
+                                  </div>
+
+                                ))}
+
+                              </div>
+
+                            </motion.div>
+
+                          )}
+
+                        </AnimatePresence>
+
+                      </div>
 
                   {/* ABOUT */}
                   <div className="border-b border-[#e8dccb] py-6">

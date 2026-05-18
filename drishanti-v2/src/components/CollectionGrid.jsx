@@ -141,9 +141,9 @@ const CollectionSection = () => {
     : allCollections.slice(0, 4);
 
   return (
-    <section className="bg-gradient-to-b from-[#fbf5ec] via-[#fffaf5] to-[#f7ede0] py-16 px-4">
+    <section className="bg-gradient-to-b from-[#fbf5ec] via-[#fffaf5] to-[#f7ede0] py-24 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <p className="text-[10px] uppercase tracking-[0.45em] text-[#af9b7d] font-semibold mb-4">
             Curated Selections
           </p>
@@ -194,12 +194,12 @@ const CollectionSection = () => {
         </div>
 
         <div className="text-center mt-10">
-          <button
-            onClick={() => setShowAll(!showAll)}
+          <Link
+            to="/collections"
             className="inline-flex items-center justify-center rounded-full border border-[#1a1a1a] bg-transparent px-8 py-3 text-[10px] tracking-[0.4em] uppercase font-bold text-[#1a1a1a] transition-all hover:bg-[#1a1a1a] hover:text-white"
           >
-            {showAll ? 'VIEW LESS' : 'VIEW ALL COLLECTIONS'}
-          </button>
+            VIEW ALL COLLECTIONS
+          </Link>
         </div>
       </div>
     </section>

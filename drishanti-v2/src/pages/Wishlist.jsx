@@ -34,8 +34,8 @@ const WishlistPage = () => {
               <Heart size={40} className="text-gray-200" strokeWidth={1} />
             </div>
             <p className="font-serif italic text-gray-400 text-lg">Your wishlist is empty.</p>
-            <Link 
-              to="/shop" 
+            <Link
+              to="/collections"
               className="inline-flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase border border-primary px-10 py-4 font-bold hover:bg-primary hover:text-white transition-all duration-500"
             >
               Explore Collection

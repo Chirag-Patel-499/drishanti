@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ShoppingBag, ChevronLeft, Minus, Plus, MessageCircle, ShieldCheck, Truck, RefreshCw, Loader2 } from 'lucide-react';
 import { useCart } from '../context/CartContext.jsx';
@@ -7,7 +7,9 @@ import { useWishlist } from '../context/WishlistContext.jsx';
 import API_BASE_URL, { API_URLS } from '../services/api';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  console.log("Slug from useParams:", slug);
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [product, setProduct] = useState(null);
@@ -24,11 +26,11 @@ const ProductDetail = () => {
       try {
         // We try to fetch by ID or SLUG depending on what 'id' contains
         // In many React apps, 'id' in useParams often refers to the slug for SEO
-        const response = await fetch(API_URLS.PRODUCT_DETAIL(id));
+        const response = await fetch(API_URLS.PRODUCT_DETAIL(slug));
         if (!response.ok) {
            // If slug fetch fails, try ID fetch if it looks like a number
-           if (!isNaN(id)) {
-              const resId = await fetch(`${API_BASE_URL}/api/products/id/${id}/`); // Hypothetical fallback
+           if (!isNaN(slug)) {
+              const resId = await fetch(`${API_BASE_URL}/api/products/id/${slug}/`); // Hypothetical fallback
               if (!resId.ok) throw new Error('Product not found');
               const data = await resId.json();
               setProduct(data);
@@ -48,7 +50,7 @@ const ProductDetail = () => {
 
     fetchProduct();
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [slug]);
 
   if (loading) return <div className="min-h-screen flex justify-center items-center"><Loader2 className="animate-spin text-amber-900" size={48} /></div>;
   if (error || !product) return <div className="min-h-screen flex flex-col justify-center items-center font-serif text-xl"><p>Product not found.</p><Link to="/shop" className="mt-4 text-amber-800 underline">Return to Shop</Link></div>;
@@ -67,9 +69,9 @@ const ProductDetail = () => {
   return (
     <div className="bg-[#fdfcfb] min-h-screen pt-24 pb-20 px-4 md:px-8 lg:px-16 font-sans text-gray-900">
       <div className="max-w-7xl mx-auto">
-        <Link to="/shop" className="inline-flex items-center text-[10px] tracking-[0.3em] uppercase text-gray-400 hover:text-amber-900 mb-10 transition-colors font-bold group">
+        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[10px] tracking-[0.3em] uppercase text-gray-400 hover:text-amber-900 mb-10 transition-colors font-bold group">
           <ChevronLeft size={14} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Collection
-        </Link>
+        </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-24">
           {/* Image Section */}

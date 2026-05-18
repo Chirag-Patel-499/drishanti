@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-[#f8f5ef]">
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#f8f5ef] pt-24">
 
       {/* MAIN GRID */}
       <div className="grid lg:grid-cols-[45%_55%] min-h-screen">
@@ -61,7 +61,7 @@ const Hero = () => {
             <div className="flex flex-wrap gap-5">
 
               <Link
-                to="/collection"
+                to="/collections"
                 className="
                   bg-[#b39168]
                   text-white

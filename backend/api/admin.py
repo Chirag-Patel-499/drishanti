@@ -18,30 +18,8 @@ class SubCategoryAdmin(admin.ModelAdmin):
 # 🔥 PRODUCT ADMIN (IMAGE + FILTER + BESTSELLER)
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'name',
-        'new_category',
-        'subcategory',
-        'price',
-        'is_bestseller',
-        'is_active',
-    )
-
-    list_filter = (
-        'new_category',
-        'subcategory',
-        'material',
-        'category',
-        'is_bestseller',
-        'is_active',
-    )
-
+    list_display = ('id', 'name', 'price')
     search_fields = ('name',)
-
-    list_editable = ('price', 'is_bestseller', 'is_active')
-
-    ordering = ('-created_at',)
 
 
 # 🔥 ORDER ITEM INLINE (ORDER DETAIL MA PRODUCT SHOW)

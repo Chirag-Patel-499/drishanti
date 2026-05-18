@@ -16,23 +16,25 @@ from .serializers import (
 )
 
 
-@api_view(['GET'])
-@authentication_classes([])
-@permission_classes([AllowAny])
-def get_categories(request):
-    categories = Category.objects.all()
-    return Response(CategorySerializer(categories, many=True).data)
+from rest_framework.generics import ListAPIView
 
+# 📂 CATEGORY VIEWS
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
 
-@api_view(['GET'])
-@authentication_classes([])
-@permission_classes([AllowAny])
-def get_subcategories(request):
-    category_slug = request.GET.get('category')
-    subcategories = SubCategory.objects.all()
-    if category_slug:
-        subcategories = subcategories.filter(category__slug=category_slug)
-    return Response(SubCategorySerializer(subcategories, many=True).data)
+class SubCategoryListView(ListAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_slug = self.request.query_params.get('category')
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+        return queryset
 
 
 @api_view(['GET'])

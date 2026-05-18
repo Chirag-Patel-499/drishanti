@@ -43,7 +43,7 @@ const GiftingSection = () => {
           </p>
 
           <Link
-            to="/shop/gifting"
+            to="/collections"
             className="inline-block border border-[#1a1a1a] px-8 py-4 text-[11px] tracking-[0.35em] uppercase font-semibold hover:bg-black hover:text-white transition-all duration-500 w-fit"
           >
             Explore Collection
